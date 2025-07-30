@@ -37,19 +37,27 @@ const StepFooter = ({ currentStep, setCurrentStep, formData, setErrors }) => {
       } w-full`}
     >
       {!isFirstStep && (
-        <button
-          onClick={() => setCurrentStep((prev) => prev - 1)}
-          className=" text-lightGray px-6 py-2 hidden"
-        >
-          Go Back
-        </button>
+        <>
+          <button
+            onClick={() => setCurrentStep((prev) => prev - 1)}
+            className=" text-coolGray px-6 py-2"
+          >
+            Go Back
+          </button>
+          <button
+            onClick={handleNext}
+            className="bg-marineBlue text-pureWhite px-6 py-2 rounded"
+          >
+            {isLastStep ? 'Confirm' : 'Next Step'}
+          </button>
+        </>
       )}
       {isFirstStep && (
         <button
           onClick={handleNext}
           className="bg-marineBlue text-pureWhite px-6 py-2 rounded"
         >
-          {isLastStep ? 'Confirm' : 'Next Step'}
+          Next Step
         </button>
       )}
     </div>
