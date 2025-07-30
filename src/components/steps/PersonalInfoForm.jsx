@@ -35,7 +35,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
 
   return (
     <>
-      <div className="container  bg-pureWhite py-8 px-4 rounded-xl md:rounded-none md:p-0">
+      <div className="container  bg-pureWhite py-8 px-4 rounded-xl md:rounded-none mt-10 md:mt-0">
         <h1 className="text-marineBlue font-bold text-3xl"> Personal info</h1>
         <h2 className="text-xl my-3 text-coolGray">
           Please provide your name, email address, and phone number.
