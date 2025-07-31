@@ -28,10 +28,13 @@ const MultiStepForm = () => {
             setIsMonthly={setIsMonthly}
             selectPlan={selectPlan}
             setSelectPlan={setSelectPlan}
+            errors={errors}
           />
         );
       case 3:
-        return <AddOns />;
+        return (
+          <AddOns isMonthly={isMonthly} addOns={addOns} setAddOns={setAddOns} />
+        );
       case 4:
         return <Summary />;
       default:
@@ -46,16 +49,20 @@ const MultiStepForm = () => {
   });
 
   const [errors, setErrors] = useState({
-    name: false,
-    email: false,
-    phone: false,
+    name: '',
+    email: '',
+    phone: '',
+    selectPlan: '',
   });
 
   const [selectPlan, setSelectPlan] = useState({
+    id: null,
     name: '',
     price: 0,
     billing: 'monthly',
   });
+
+  const [addOns, setAddOns] = useState([]);
 
   return (
     <div className="container relative min-h-screen font-ubuntu bg-magnolia flex md:flex md:justify-center md:items-center">
@@ -63,14 +70,14 @@ const MultiStepForm = () => {
       <div className="absolute top-0 left-0 w-full h-[200px] bg-mobile-sidebar bg-no-repeat bg-cover z-0 md:hidden" />
 
       {/* Foreground Content */}
-      <div className=" container relative z-10 flex flex-col items-center sm:min-h-screen pt-10 md:grid md:bg-pureWhite md:w-[60%] md:grid-cols-30-70 md:grid-rows-80-20 md:p-4  md:min-h-[66.6vh] md:rounded-xl md:shadow-lg  ">
+      <div className=" container relative z-10 flex flex-col items-center  sm:min-h-screen pt-10 md:grid md:bg-pureWhite md:w-[50%] md:grid-cols-30-70 md:grid-rows-80-20 md:p-4  md:min-h-[66.6vh] md:rounded-xl md:shadow-lg  ">
         {/* Navigation */}
         <div className="md:row-span-2 md:bg-desktop-sidebar md:bg-no-repeat md:bg-cover md:h-full md:rounded-xl md:p-6 md:mr-8">
           <Nav currentStep={currentStep} formData={formData} />
         </div>
 
         {/* Main Form Content */}
-        <main className="flex-1 flex flex-col items-center px-4  ">
+        <main className="flex-1 flex flex-col items-center md:items-start px-4 ">
           {renderStep()}
         </main>
 
@@ -81,6 +88,7 @@ const MultiStepForm = () => {
             setCurrentStep={setCurrentStep}
             formData={formData}
             setErrors={setErrors}
+            selectPlan={selectPlan}
           />
         </footer>
       </div>
