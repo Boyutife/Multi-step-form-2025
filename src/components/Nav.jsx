@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Nav = ({ currentStep }) => {
   const steps = [
     { number: 1, label: 'YOUR INFO' },
