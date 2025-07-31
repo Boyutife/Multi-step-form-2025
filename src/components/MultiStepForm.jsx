@@ -36,7 +36,14 @@ const MultiStepForm = () => {
           <AddOns isMonthly={isMonthly} addOns={addOns} setAddOns={setAddOns} />
         );
       case 4:
-        return <Summary />;
+        return (
+          <Summary
+            selectPlan={selectPlan}
+            addOns={addOns}
+            isMonthly={isMonthly}
+            setCurrentStep={setCurrentStep}
+          />
+        );
       default:
         return <PersonalInfoForm />;
     }
