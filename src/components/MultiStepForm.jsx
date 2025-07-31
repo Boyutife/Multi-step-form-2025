@@ -5,10 +5,34 @@ import PersonalInfoForm from './steps/PersonalInfoForm';
 import AddOns from './steps/AddOns';
 import SelectPlan from './steps/SelectPlan';
 import Summary from './steps/Summary';
+import ThankYou from './steps/ThankYou';
+import FinishingUp from './steps/FinishingUp';
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isMonthly, setIsMonthly] = useState(true);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    selectPlan: '',
+  });
+
+  const [selectPlan, setSelectPlan] = useState({
+    id: null,
+    name: '',
+    price: 0,
+    billing: 'monthly',
+  });
+
+  const [addOns, setAddOns] = useState([]);
 
   const renderStep = () => {
     switch (currentStep) {
@@ -42,34 +66,19 @@ const MultiStepForm = () => {
             addOns={addOns}
             isMonthly={isMonthly}
             setCurrentStep={setCurrentStep}
+            isConfirmed={isConfirmed}
+            formData={formData}
+            setFormData={setFormData}
+            setIsConfirmed={setIsConfirmed}
+            setAddOns={setAddOns}
+            setSelectPlan={setSelectPlan}
           />
         );
+
       default:
         return <PersonalInfoForm />;
     }
   };
-
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-  });
-
-  const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    selectPlan: '',
-  });
-
-  const [selectPlan, setSelectPlan] = useState({
-    id: null,
-    name: '',
-    price: 0,
-    billing: 'monthly',
-  });
-
-  const [addOns, setAddOns] = useState([]);
 
   return (
     <div className="container relative min-h-screen font-ubuntu bg-magnolia flex md:flex md:justify-center md:items-center">
@@ -96,6 +105,8 @@ const MultiStepForm = () => {
             formData={formData}
             setErrors={setErrors}
             selectPlan={selectPlan}
+            setIsConfirmed={setIsConfirmed}
+            isConfirmed={isConfirmed}
           />
         </footer>
       </div>
