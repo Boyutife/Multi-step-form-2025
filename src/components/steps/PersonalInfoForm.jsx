@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const PersonalInfoForm = ({ formData, setFormData, errors }) => {
   const inputFields = [
     {
