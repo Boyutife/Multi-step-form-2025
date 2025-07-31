@@ -4,6 +4,8 @@ const StepFooter = ({
   formData,
   setErrors,
   selectPlan,
+  setIsConfirmed,
+  isConfirmed,
 }) => {
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === 4;
@@ -43,12 +45,16 @@ const StepFooter = ({
 
     setErrors(newErrors);
 
-    const hasErrors = Object.values(newErrors).some(Boolean);
+    if (Object.values(newErrors).some(Boolean)) return;
 
-    if (!hasErrors) {
-      setCurrentStep((prev) => prev + 1);
-    }
+    setCurrentStep((prev) => prev + 1);
   };
+
+  const handleConfirm = () => {
+    setIsConfirmed(true);
+  };
+
+  if (isConfirmed) return null;
 
   return (
     <div
@@ -57,29 +63,19 @@ const StepFooter = ({
       } w-full`}
     >
       {!isFirstStep && (
-        <>
-          <button
-            onClick={() => setCurrentStep((prev) => prev - 1)}
-            className=" text-coolGray px-6 py-2"
-          >
-            Go Back
-          </button>
-          <button
-            onClick={handleNext}
-            className="bg-marineBlue text-pureWhite px-6 py-2 rounded"
-          >
-            {isLastStep ? 'Confirm' : 'Next Step'}
-          </button>
-        </>
-      )}
-      {isFirstStep && (
         <button
-          onClick={handleNext}
-          className="bg-marineBlue text-pureWhite px-6 py-2 rounded"
+          onClick={() => setCurrentStep((prev) => prev - 1)}
+          className=" text-coolGray px-6 py-2"
         >
-          Next Step
+          Go Back
         </button>
       )}
+      <button
+        onClick={isLastStep ? handleConfirm : handleNext}
+        className="bg-marineBlue text-pureWhite px-6 py-2 rounded"
+      >
+        {isLastStep ? 'Confirm' : 'Next step'}
+      </button>
     </div>
   );
 };
