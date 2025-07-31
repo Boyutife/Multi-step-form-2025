@@ -2,7 +2,13 @@ import arcadeIcon from '../../assets/images/icon-arcade.svg';
 import advancedIcon from '../../assets/images/icon-advanced.svg';
 import proIcon from '../../assets/images/icon-pro.svg';
 
-const SelectPlan = ({ isMonthly, setIsMonthly, selectPlan, setSelectPlan }) => {
+const SelectPlan = ({
+  isMonthly,
+  setIsMonthly,
+  selectPlan,
+  setSelectPlan,
+  errors,
+}) => {
   const plans = [
     {
       id: 1,
@@ -82,6 +88,7 @@ const SelectPlan = ({ isMonthly, setIsMonthly, selectPlan, setSelectPlan }) => {
             );
           })}
         </div>
+
         <div
           className="flex justify-center rounded-lg bg-alabaster mt-3 p-3 items-center hover:cursor-pointer"
           role="switch"
@@ -109,6 +116,9 @@ const SelectPlan = ({ isMonthly, setIsMonthly, selectPlan, setSelectPlan }) => {
             Yearly
           </p>
         </div>
+        {errors.selectPlan && (
+          <p className="text-red-500 text-sm mt-2">{errors.selectPlan}</p>
+        )}
       </div>
     </>
   );

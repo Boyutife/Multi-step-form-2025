@@ -1,24 +1,44 @@
-const StepFooter = ({ currentStep, setCurrentStep, formData, setErrors }) => {
+const StepFooter = ({
+  currentStep,
+  setCurrentStep,
+  formData,
+  setErrors,
+  selectPlan,
+}) => {
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === 4;
 
-  const handleNext = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  const handleNext = () => {
+    // Validate step : Personal info
     const newErrors = {};
 
-    if (formData.name.trim() === '') {
-      newErrors.name = 'This field is required';
-    }
+    switch (currentStep) {
+      case 1:
+        if (formData.name.trim() === '') {
+          newErrors.name = 'This field is required';
+        }
 
-    if (formData.email.trim() === '') {
-      newErrors.email = 'This field is required';
-    } else if (!emailRegex.test(formData.email.trim())) {
-      newErrors.email = 'Please enter a valid email';
-    }
+        if (formData.email.trim() === '') {
+          newErrors.email = 'This field is required';
+        } else if (!emailRegex.test(formData.email.trim())) {
+          newErrors.email = 'Please enter a valid email';
+        }
 
-    if (formData.phone.trim() === '') {
-      newErrors.phone = 'This field is required';
+        if (formData.phone.trim() === '') {
+          newErrors.phone = 'This field is required';
+        }
+        break;
+
+      case 2:
+        if (!selectPlan.id) {
+          newErrors.selectPlan = 'Please select a plan to continue';
+        }
+        break;
+
+      default:
+        break;
     }
 
     setErrors(newErrors);
